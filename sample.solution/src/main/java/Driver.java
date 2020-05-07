@@ -14,10 +14,10 @@ public class Driver {
 
         KnapsackSolution s2 = new KnapsackSolution();
 
-        int weight[] = new int[]{1,2,4,2,5};
-        int value[] = new int[]{5,3,5,3,2};
+        int value[] = new int[]{1,2,5,6};
+        int weight[] = new int[]{2,3,4,5};
         int n = value.length;
-        int capacity = 5;
+        int capacity = 8;
         int knapsackResults = s2.solution(value, weight, n, capacity, new int[n+1][capacity+1]);
         System.out.println("Knapsack Memoized: "+knapsackResults);
 
