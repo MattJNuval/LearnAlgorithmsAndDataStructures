@@ -1,4 +1,4 @@
-public class Solution {
+public class FibonacciSolution {
 
     /**
      * When it comes to Dynamic Programming there are 3 Steps to follow:
@@ -40,7 +40,6 @@ public class Solution {
         dp[2] = 1;
         for(int i = 3; i < data+1; i++) {
             dp[i] = dp[i-1] + dp[i-2];
-            printList(dp);
         }
         return dp[data];
     }
