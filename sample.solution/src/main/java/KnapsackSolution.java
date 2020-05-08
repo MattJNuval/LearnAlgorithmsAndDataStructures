@@ -40,30 +40,27 @@ public class KnapsackSolution {
         return results;
     }
 
-    public int bottonUpSolution(int value[], int weight[], int n, int capacity) {
-        int solution[][] = new int[n+1][capacity+1];
-        // Initialize currentCapacity of the 0th row to 0
-        for(int currentCapacity  = 0; currentCapacity < capacity; currentCapacity++) {
-            solution[0][currentCapacity] = 0;
-        }
-        // Loops through the items
-        for(int currentItem = 1; currentItem < n; currentItem++) {
-            // Loops through the capacity
-            for(int currentCapacity = 0; currentCapacity < capacity; currentCapacity++) {
-                // If the weight of the current item has passed the current capacity
-                if(weight[currentItem] > currentCapacity) {
-                    // Store the value of the current item and current capacity in the solution
+    public int bottonUpSolution(int value[], int weight[], int items, int capacity) {
+        int solution[][] = new int[items+1][capacity+1];
+
+        for(int currentItem = 0; currentItem <= items; currentItem++) {
+            for(int currentCapacity = 0; currentCapacity <= capacity; currentCapacity++) {
+
+               if(currentItem == 0 || currentCapacity == 0) {
+                    solution[currentItem][currentCapacity] = 0;
+                } else if(weight[currentItem-1] > currentCapacity) {
                     solution[currentItem][currentCapacity] = solution[currentItem-1][currentCapacity];
                 } else {
-                    // Move on to the next item without updating capacity
                     int optionOne = solution[currentItem-1][currentCapacity];
-                    // Add new item in knapsack and update capacity
-                    int optionTwo = value[currentItem] + solution[currentItem-1][currentCapacity - weight[currentItem]];
+                    int optionTwo = value[currentItem-1] + solution[currentItem-1][currentCapacity - weight[currentItem-1]];
                     solution[currentItem][currentCapacity] = Math.max(optionOne, optionTwo);
                 }
+
+
+
             }
         }
-        return solution[n][capacity];
+        return solution[items][capacity];
     }
 
 }

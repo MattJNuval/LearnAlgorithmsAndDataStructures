@@ -22,6 +22,6 @@ public class Driver {
         System.out.println("Knapsack Memoized: "+knapsackResults);
 
         int knapsackResults2 = s2.bottonUpSolution(value, weight, n, capacity);
-        System.out.println("Knapsack Bottom Up: "+knapsackResults);
+        System.out.println("Knapsack Bottom Up: "+knapsackResults2);
     }
 }
