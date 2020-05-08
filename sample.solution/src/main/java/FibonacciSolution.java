@@ -19,29 +19,34 @@ public class FibonacciSolution {
 
     public int fibMemoized(int data, int memo[]) {
         int results = 0;
-        if(data == memo[data]) {
+
+        if(memo[data] != 0) {
             return memo[data];
         }
-        if(data <= 2) {
+        if(data <= 0) {
+            results = 0;
+        } else if(data == 1) {
             results = 1;
-            memo[data] = results;
         } else {
-            results = fibMemoized(data-1, memo) + fibMemoized(data-2, memo);
-            memo[data] = results;
-            printList(memo);
+            results = fibMemoized(data - 1, memo) + fibMemoized(data - 2, memo);
         }
+        memo[data] = results;
         return results;
     }
 
     public int fibBottomUp(int data) {
-        int dp[] = new int[data+1];
-        dp[0] = 0;
-        dp[1] = 1;
-        dp[2] = 1;
-        for(int i = 3; i < data+1; i++) {
-            dp[i] = dp[i-1] + dp[i-2];
-        }
-        return dp[data];
-    }
+        int solution[] = new int[data+1];
 
+        for(int i = 0; i <= data; i++) {
+            if(i <= 0) {
+                solution[i] = 0;
+            } else if(i == 1){
+                solution[i] = 1;
+            } else {
+                solution[i] = solution[i-1] + solution[i-2];
+            }
+        }
+        printList(solution);
+        return solution[data];
+    }
 }

@@ -17,27 +17,23 @@ public class KnapsackSolution {
     }
 
     // Memoized Solution O(nC)
-    public int solution(int value[], int weight[], int n, int capacity, int memo[][]) {
-        int results = 0;
-        if(memo[n][capacity] != 0) {
-            return memo[n][capacity];
-        }
-        // if we gone through the items or exhausted out capacity
-        if(n == 0 || capacity == 0) {
-            results = 0;
-            // if the current item weight exceeds the current capacity
-        } else if(weight[n-1] > capacity) {
-            // Move on to the next item without updating capacity
-            results = solution(value, weight, n-1, capacity, memo);
-        } else {
-            // Move on to the next item without updating capacity
-            int optionOne = solution(value, weight, n-1, capacity, memo);
-            // Add new item in knapsack and update capacity
-            int optionTwo = value[n-1] + solution(value, weight, n-1, capacity - weight[n-1], memo);
-            results = Math.max(optionOne, optionTwo);
-        }
-        memo[n][capacity] = results;
-        return results;
+    public int solution(int value[], int weight[], int currentItem, int currentCapacity, int memo[][]) {
+       int results = 0;
+       if(memo[currentItem][currentCapacity] != 0) {
+           return memo[currentItem][currentCapacity];
+       }
+
+       if(currentItem == 0 || currentCapacity == 0) {
+           results = 0;
+       } else if(weight[currentItem-1] > currentCapacity) {
+           results = solution(value, weight, currentItem-1, currentCapacity, memo);
+       } else {
+           int optionOne = solution(value, weight, currentItem-1, currentCapacity, memo);
+           int optionTwo = value[currentItem-1] + solution(value, weight, currentItem-1, currentCapacity-weight[currentItem-1], memo);
+           results = Math.max(optionOne, optionTwo);
+       }
+       memo[currentItem][currentCapacity] = results;
+       return results;
     }
 
     public int bottonUpSolution(int value[], int weight[], int items, int capacity) {
