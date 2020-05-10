@@ -13,11 +13,25 @@ public class KnapsackSolution {
 
         }
 
-
     }
 
+    public int solution(int value[], int weight[], int currentItem, int currentCapacity) {
+        int results = 0;
+        if(currentItem == 0 || currentCapacity == 0) {
+            results = 0;
+        } else if(weight[currentItem-1] > currentCapacity) {
+            results = solution(value, weight, currentItem-1, currentCapacity);
+        } else {
+            int optionOne = solution(value, weight, currentItem-1, currentCapacity);
+            int optionTwo = value[currentItem-1] + solution(value, weight, currentItem-1, currentCapacity - weight[currentItem-1]);
+            results = Math.max(optionOne, optionTwo);
+        }
+        return results;
+    }
+
+
     // Memoized Solution O(nC)
-    public int solution(int value[], int weight[], int currentItem, int currentCapacity, int memo[][]) {
+    public int memoizedSolution(int value[], int weight[], int currentItem, int currentCapacity, int memo[][]) {
        int results = 0;
        if(memo[currentItem][currentCapacity] != 0) {
            return memo[currentItem][currentCapacity];
@@ -26,10 +40,10 @@ public class KnapsackSolution {
        if(currentItem == 0 || currentCapacity == 0) {
            results = 0;
        } else if(weight[currentItem-1] > currentCapacity) {
-           results = solution(value, weight, currentItem-1, currentCapacity, memo);
+           results = memoizedSolution(value, weight, currentItem-1, currentCapacity, memo);
        } else {
-           int optionOne = solution(value, weight, currentItem-1, currentCapacity, memo);
-           int optionTwo = value[currentItem-1] + solution(value, weight, currentItem-1, currentCapacity-weight[currentItem-1], memo);
+           int optionOne = memoizedSolution(value, weight, currentItem-1, currentCapacity, memo);
+           int optionTwo = value[currentItem-1] + memoizedSolution(value, weight, currentItem-1, currentCapacity-weight[currentItem-1], memo);
            results = Math.max(optionOne, optionTwo);
        }
        memo[currentItem][currentCapacity] = results;

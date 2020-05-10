@@ -1,27 +1,30 @@
+
+
 public class Driver {
     public static void main(String args[]) {
-        FibonacciSolution s = new FibonacciSolution();
-
-        int[] data = new int[]{3, 7, 1, 3, 9};
-
-        int data2[][] = new int[][]{
-                {1,2,4,2,5},
-                {5,3,5,3,2}};
-
-       // System.out.println("FibMemoized: "+ s.fibMemoized(9, new int[10]));
-
-        System.out.println("FibBottomUp: "+ s.fibBottomUp(9));
+        StopWatch stopWatch =  new StopWatch();
+        StopWatch stopWatch2 =  new StopWatch();
+        StopWatch stopWatch3 =  new StopWatch();
 
         KnapsackSolution s2 = new KnapsackSolution();
 
-        int value[] = new int[]{1,2,5,6};
-        int weight[] = new int[]{2,3,4,5};
-        int n = value.length;
-        int capacity = 8;
-        int knapsackResults = s2.solution(value, weight, n, capacity, new int[n+1][capacity+1]);
-        System.out.println("Knapsack Memoized: "+knapsackResults);
+        stopWatch.start();
+        int knapsackResults = s2.solution(new int[]{1,2,5,6}, new int[]{2,3,4,5}, 4, 8);
+        stopWatch.stop();
 
-        int knapsackResults2 = s2.bottonUpSolution(value, weight, n, capacity);
-        System.out.println("Knapsack Bottom Up: "+knapsackResults2);
+        System.out.println("Knapsack: "+knapsackResults + " Time: " + stopWatch.getElapsedTime());
+
+
+        stopWatch2.start();
+        int knapsackResults2 = s2.memoizedSolution(new int[]{1,2,5,6}, new int[]{2,3,4,5}, 4, 8, new int[4+1][8+1]);
+        stopWatch2.stop();
+
+        System.out.println("Knapsack Memoized: "+knapsackResults2 + " Time: " + stopWatch2.getElapsedTime());
+
+        stopWatch3.start();
+        int knapsackResults3 = s2.bottonUpSolution(new int[]{1,2,5,6}, new int[]{2,3,4,5}, 4, 8);
+        stopWatch3.stop();
+
+        System.out.println("Knapsack Bottom Up: "+ knapsackResults3 + " Time: " + stopWatch3.getElapsedTime());
     }
 }

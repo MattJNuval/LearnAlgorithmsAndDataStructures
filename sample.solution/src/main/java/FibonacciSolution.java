@@ -17,7 +17,19 @@ public class FibonacciSolution {
         System.out.println();
     }
 
-    public int fibMemoized(int data, int memo[]) {
+    public int solution(int data) {
+        int results = 0;
+        if(data <= 0) {
+            results = 0;
+        } else if(data == 1) {
+            results = 1;
+        } else {
+            results = solution(data-1) + solution(data-2);
+        }
+        return results;
+    }
+
+    public int memoizedSolution(int data, int memo[]) {
         int results = 0;
 
         if(memo[data] != 0) {
@@ -28,13 +40,13 @@ public class FibonacciSolution {
         } else if(data == 1) {
             results = 1;
         } else {
-            results = fibMemoized(data - 1, memo) + fibMemoized(data - 2, memo);
+            results = memoizedSolution(data - 1, memo) + memoizedSolution(data - 2, memo);
         }
         memo[data] = results;
         return results;
     }
 
-    public int fibBottomUp(int data) {
+    public int bottomUpSolution(int data) {
         int solution[] = new int[data+1];
 
         for(int i = 0; i <= data; i++) {
@@ -46,7 +58,6 @@ public class FibonacciSolution {
                 solution[i] = solution[i-1] + solution[i-2];
             }
         }
-        printList(solution);
         return solution[data];
     }
 }
